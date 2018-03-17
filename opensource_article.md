@@ -7,7 +7,13 @@ time on language or framework overhead.
 
 Arcade is a Python library that makes it easy to create 2D video games.  
 
-Other populare Python libraries used for games:[Pyglet](https://bitbucket.org/pyglet/pyglet/wiki/Home), 
+There are other [Python GUI frameworks](https://opensource.com/resources/python/gui-frameworks)
+out there. 
+
+You can also use [Pygame to create arcade games](http://ProgramArcadeGames.com).
+
+Other popular Python libraries used for games:
+[Pyglet](https://bitbucket.org/pyglet/pyglet/wiki/Home), 
 [Pygame](https://www.pygame.org), [Kivy](https://kivy.org)
 
 Installation
@@ -15,7 +21,9 @@ Installation
 
 Arcade, like many other packages, is available via 
 [PyPi](https://pypi.python.org/pypi). That means you can install it using the 
-`pip` command. If you already have Python installed, you can likely just open
+`pip` command. 
+(Or the [pipenv](https://opensource.com/article/18/2/why-python-devs-should-use-pipenv) command.)
+If you already have Python installed, you can likely just open
 up a command prompt on Windows and type:
 
 `pip install aracde`
@@ -38,8 +46,8 @@ Let's create an example that draws a smiley face:
 The script below shows how you can use 
 [Arcade's drawing commands](http://arcade.academy/quick_index.html#drawing-module)
 to draw the smiley face. Note that you don't need to know how to use "classes"
-or even define "functions." This great for anyone who wants to get started
-doing something visual.
+or even define "functions." This great for anyone who wants to start programming
+by doing something visual.
 
 ```python
 import arcade
@@ -94,93 +102,32 @@ arcade.finish_render()
 arcade.run()
 ```
 
-Using Classes and Functions
+Using Functions
 ---
 
-Of course, writing code in the global context isn't good form. It is easy to
-use learn about using classes and functions in the context of creating graphics.
+Of course, writing code in the global context isn't good form. Thankfully it
+is easy to use learn about using functions with Python and Arcade.
 
 ![Classes and Functions](classes_and_functions.png)
 
 ```python
-import arcade
-
-SCREEN_WIDTH = 600
-SCREEN_HEIGHT = 600
-
-
-def draw_background():
-    """
-    This function draws the background. Specifically, the sky and ground.
-    """
-    # Draw the sky in the top two-thirds
-    arcade.draw_lrtb_rectangle_filled(0,
-                                      SCREEN_WIDTH,
-                                      SCREEN_HEIGHT,
-                                      SCREEN_HEIGHT * (1 / 3),
-                                      arcade.color.SKY_BLUE)
-
-    # Draw the ground in the bottom third
-    arcade.draw_lrtb_rectangle_filled(0,
-                                      SCREEN_WIDTH,
-                                      SCREEN_HEIGHT / 3,
-                                      0,
-                                      arcade.color.DARK_SPRING_GREEN)
-
-
-def draw_bird(x, y):
-    """
-    Draw a bird using a couple arcs.
-    """
-    arcade.draw_arc_outline(x, y, 20, 20, arcade.color.BLACK, 0, 90)
-    arcade.draw_arc_outline(x + 40, y, 20, 20, arcade.color.BLACK, 90, 180)
-
-
 def draw_pine_tree(x, y):
     """
     This function draws a pine tree at the specified location.
     """
-    # Draw the triangle on top of the trunk
-    arcade.draw_triangle_filled(x + 40, y,
-                                x, y - 100,
-                                x + 80, y - 100,
+    # Draw the triangle on top of the trunk.
+    # # We need three x, y points for the triangle.
+    arcade.draw_triangle_filled(x + 40, y,       # Point 1
+                                x, y - 100,      # Point 2
+                                x + 80, y - 100, # Point 3
                                 arcade.color.DARK_GREEN)
 
     # Draw the trunk
     arcade.draw_lrtb_rectangle_filled(x + 30, x + 50, y - 100, y - 140,
                                       arcade.color.DARK_BROWN)
-
-
-def main():
-    """
-    This is the main program.
-    """
-
-    # Open the window
-    arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing With Functions")
-
-    # Start the render process. This must be done before any drawing commands.
-    arcade.start_render()
-
-    # Call our drawing functions.
-    draw_background()
-    draw_pine_tree(50, 250)
-    draw_pine_tree(350, 320)
-    draw_bird(70, 500)
-    draw_bird(470, 550)
-
-    # Finish the render.
-    # Nothing will be drawn without this.
-    # Must happen after all draw commands
-    arcade.finish_render()
-
-    # Keep the window up until someone closes it.
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()
 ```
+
+For the full example see [drawing with functions](http://arcade.academy/examples/drawing_with_functions.html).
 
 Using Sprites
 ---
