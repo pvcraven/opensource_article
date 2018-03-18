@@ -25,6 +25,7 @@ library, rather than something like more modern like OpenGL.
 
 I wanted a library that was easier to use, more powerful, and used some of the 
 new features of Python 3 like decorators and type-hinting. Arcade is it.
+And this is how to get started.
 
 Installation
 ---
@@ -144,6 +145,59 @@ The more experienced reader will know that modern graphs programs first load
 drawing information onto the graphics card, and then ask the graphics
 card to draw it later as a batch. 
 [Arcade supports this as well](http://arcade.academy/examples/shape_list_demo.html).
+
+The Window Class
+---
+
+Larger programs will typically derive from the `Window` class, or use 
+decorators. This allows a programmer to write code to handle drawing,
+updating, and handling input from the user.
+
+```python
+import arcade
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+
+class MyGame(arcade.Window):
+    """
+    Main application class.
+    """
+
+    def __init__(self, width, height):
+        super().__init__(width, height)
+
+        arcade.set_background_color(arcade.color.AMAZON)
+
+    def setup(self):
+        # Set up your game here
+        pass
+
+    def on_draw(self):
+        """
+        Render the screen.
+        """
+        arcade.start_render()
+        # Your drawing code goes here
+
+    def update(self, delta_time):
+        """
+        All the logic to move, and the game logic goes here.
+        """
+        pass
+
+
+def main():
+    """ Main method """
+    game = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT)
+    game.setup()
+    arcade.run()
+
+
+if __name__ == "__main__":
+    main()
+```
 
 Using Sprites
 ---
