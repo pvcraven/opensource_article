@@ -1,26 +1,38 @@
 Easy 2D Game Creation With Python And Arcade
 ===
 
-Python is a great language for people learning to program. It is also a great 
+[Python](https://opensource.com/resources/python) is a great language for 
+people learning to program. It is also a great 
 language for anyone just wanting to "get stuff done" without spending a lot of 
 time on language or framework overhead.
 
-Arcade is a Python library that makes it easy to create 2D video games.  
+[Arcade](http://arcade.academy) is a Python library for 
+creating 2D video games. It is easy to get get started
+with it, and is a great choice for new programmers or people who are looking
+for a game framework that doesn't take a long time to learn.
 
-There are other [Python GUI frameworks](https://opensource.com/resources/python/gui-frameworks)
-out there. 
+I started development on Arcade after teaching students using
+the [PyGame](https://www.pygame.org) library for almost 10 years in person and 
+[on-line](http://ProgramArcadeGames.com). PyGame is great, but eventually
+I felt like I was wasting time having to cover for 
+[bugs that were never fixed](https://stackoverflow.com/questions/10148479/artifacts-when-drawing-primitives-with-pygame).
+I worried about teaching things like the [event loop](https://www.pygame.org/docs/tut/tom_games2.html)
+which was no longer the way we code. I had a
+[whole section](http://programarcadegames.com/index.php?chapter=introduction_to_graphics&lang=en#section_5_1)
+where I explained why the y-coordinates were reversed. 
+I didn't hold a lot of hope for the future as PyGame was seldom updated, 
+and it is based on
+an old [SDL 1 ](https://www.libsdl.org/download-1.2.php)
+library, rather than something like more modern like OpenGL.
 
-You can also use [Pygame to create arcade games](http://ProgramArcadeGames.com).
-
-Other popular Python libraries used for games:
-[Pyglet](https://bitbucket.org/pyglet/pyglet/wiki/Home), 
-[Pygame](https://www.pygame.org), [Kivy](https://kivy.org)
+I wanted a library that was easier to use, more powerful, and used some of the 
+new features of Python 3. Arcade is it.
 
 Installation
 ---
 
 Arcade, like many other packages, is available via 
-[PyPi](https://pypi.python.org/pypi). That means you can install it using the 
+[PyPi](https://pypi.python.org/pypi). That means you can install Arcade using the 
 `pip` command. 
 (Or the [pipenv](https://opensource.com/article/18/2/why-python-devs-should-use-pipenv) command.)
 If you already have Python installed, you can likely just open
@@ -106,9 +118,8 @@ Using Functions
 ---
 
 Of course, writing code in the global context isn't good form. Thankfully it
-is easy to use learn about using functions with Python and Arcade.
-
-![Classes and Functions](classes_and_functions.png)
+is easy to use learn about using functions with Python and Arcade. Here we can
+see an example of a student drawing a pine tree using a function and parameters.
 
 ```python
 def draw_pine_tree(x, y):
@@ -127,7 +138,14 @@ def draw_pine_tree(x, y):
                                       arcade.color.DARK_BROWN)
 ```
 
+![Classes and Functions](classes_and_functions.png)
+
 For the full example see [drawing with functions](http://arcade.academy/examples/drawing_with_functions.html).
+
+The more experience reader will know that modern graphs programs first load
+drawing information onto the graphics card, and then asks the graphics
+card to draw it. 
+[Arcade supports this as well](http://arcade.academy/examples/shape_list_demo.html).
 
 Using Sprites
 ---
@@ -140,3 +158,5 @@ Other Example Code
 ---
 
 [Example Arcade Code](http://arcade.academy/examples/index.html)
+
+Note how easy it is to run examples.
