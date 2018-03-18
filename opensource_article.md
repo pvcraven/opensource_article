@@ -1,15 +1,13 @@
 Easy 2D Game Creation With Python And Arcade
 ===
 
-[Python](https://opensource.com/resources/python) is a great language for 
-people learning to program. It is also a great 
-language for anyone just wanting to "get stuff done" without spending a lot of 
-time on language or framework overhead.
+[Python](https://opensource.com/resources/python) is a outstanding language for 
+people learning. It is perfect for anyone wanting to 
+"get stuff done" and not spend heaps of time on boilerplate code.
 
 [Arcade](http://arcade.academy) is a Python library for 
-creating 2D video games. It is easy to get get started
-with it, and is a great choice for new programmers or people who are looking
-for a game framework that doesn't take a long time to learn.
+creating 2D video games. It is painless to get get started using, and very 
+capable as you gain experience.
 
 I started development on Arcade after teaching students using
 the [PyGame](https://www.pygame.org) library for almost 10 years in person and 
@@ -58,8 +56,8 @@ Let's create an example that draws a smiley face:
 The script below shows how you can use 
 [Arcade's drawing commands](http://arcade.academy/quick_index.html#drawing-module)
 to draw the smiley face. Note that you don't need to know how to use "classes"
-or even define "functions." This great for anyone who wants to start programming
-by doing something visual.
+or even define "functions." Programming with quick visual feedback is great 
+for anyone who wants to start programming.
 
 ```python
 import arcade
@@ -127,7 +125,7 @@ def draw_pine_tree(x, y):
     This function draws a pine tree at the specified location.
     """
     # Draw the triangle on top of the trunk.
-    # # We need three x, y points for the triangle.
+    # We need three x, y points for the triangle.
     arcade.draw_triangle_filled(x + 40, y,       # Point 1
                                 x, y - 100,      # Point 2
                                 x + 80, y - 100, # Point 3
@@ -142,13 +140,95 @@ def draw_pine_tree(x, y):
 
 For the full example see [drawing with functions](http://arcade.academy/examples/drawing_with_functions.html).
 
-The more experience reader will know that modern graphs programs first load
-drawing information onto the graphics card, and then asks the graphics
-card to draw it. 
+The more experienced reader will know that modern graphs programs first load
+drawing information onto the graphics card, and then ask the graphics
+card to draw it later as a batch. 
 [Arcade supports this as well](http://arcade.academy/examples/shape_list_demo.html).
 
 Using Sprites
 ---
+
+Sprites allow programs to detect collisions. It is easy to create an instance of
+Arcade's [Sprite](http://arcade.academy/arcade.html#arcade.sprite.Sprite) 
+class out of a graphic. A programmer only needs the file name 
+of an image to base the sprite
+off of, and optionally a number to scale the image up or down. For example:
+```python
+SPRITE_SCALING_COIN = 0.2
+
+coin = arcade.Sprite("coin_01.png", SPRITE_SCALING_COIN)
+```
+
+This code will create a sprite using the image stored in `coin_01.png`. The 
+image will be scaled down to 20% of its original height and width.
+
+Sprites are normally organized into lists. These lists make it easier to manage
+the sprites and Arcade will use OpenGL to batch-draw the sprites as a group.
+The code below sets up a game with a player, and a bunch of coins for the player
+to collect. We use two lists, one for the player and one for the coins.
+
+![Collecting Coins With Sprites](sprite_collect_coins1.png)
+
+```python
+    def setup(self):
+        """ Set up the game and initialize the variables. """
+
+        # Sprite lists
+        self.player_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
+
+        # Score
+        self.score = 0
+
+        # Set up the player
+        # Character image from kenney.nl
+        self.player_sprite = arcade.Sprite("images/character.png", SPRITE_SCALING_PLAYER)
+        self.player_sprite.center_x = 50 # Starting position
+        self.player_sprite.center_y = 50
+        self.player_list.append(self.player_sprite)
+
+        # Create the coins
+        for i in range(COIN_COUNT):
+
+            # Create the coin instance
+            # Coin image from kenney.nl
+            coin = arcade.Sprite("images/coin_01.png", SPRITE_SCALING_COIN)
+
+            # Position the coin
+            coin.center_x = random.randrange(SCREEN_WIDTH)
+            coin.center_y = random.randrange(SCREEN_HEIGHT)
+
+            # Add the coin to the lists
+            self.coin_list.append(coin)
+```
+
+We can easily draw all the coins in the coin lists:
+
+```python
+    def on_draw(self):
+        """ Draw everything """
+        arcade.start_render()
+        self.coin_list.draw()
+        self.player_list.draw()
+```
+
+The function `check_for_collision_with_list` allows us to see if a sprite runs
+into another sprite in a list. We can use this to see all the coins the player
+sprite is in contact with. Using a simple `for` loop, we can get rid of the coin
+from the game and increase our score.
+
+```python
+    def update(self, delta_time):
+        # Generate a list of all sprites that collided with the player.
+        hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
+
+        # Loop through each colliding sprite, remove it, and add to the score.
+        for coin in hit_list:
+            coin.kill()
+            self.score += 1
+```
+
+For the full example, see [collect_coins.py](http://arcade.academy/examples/sprite_collect_coins.html).
 
 Platformers
 ---
