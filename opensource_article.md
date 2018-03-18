@@ -4,10 +4,10 @@ Easy 2D Game Creation With Python And Arcade
 [Python](https://opensource.com/resources/python) is a outstanding language for 
 people learning. It is perfect for anyone wanting to 
 "get stuff done" and not spend heaps of time on boilerplate code.
-
 [Arcade](http://arcade.academy) is a Python library for 
 creating 2D video games. It is painless to get get started using, and very 
-capable as you gain experience.
+capable as you gain experience. This article will show you how to use Python
+and Arcade to program video games.
 
 I started development on Arcade after teaching students using
 the [PyGame](https://www.pygame.org) library for almost 10 years in person and 
@@ -24,7 +24,7 @@ an old [SDL 1 ](https://www.libsdl.org/download-1.2.php)
 library, rather than something like more modern like OpenGL.
 
 I wanted a library that was easier to use, more powerful, and used some of the 
-new features of Python 3. Arcade is it.
+new features of Python 3 like decorators and type-hinting. Arcade is it.
 
 Installation
 ---
@@ -57,7 +57,7 @@ The script below shows how you can use
 [Arcade's drawing commands](http://arcade.academy/quick_index.html#drawing-module)
 to draw the smiley face. Note that you don't need to know how to use "classes"
 or even define "functions." Programming with quick visual feedback is great 
-for anyone who wants to start programming.
+for anyone who wants to start learning to program.
 
 ```python
 import arcade
@@ -116,8 +116,8 @@ Using Functions
 ---
 
 Of course, writing code in the global context isn't good form. Thankfully it
-is easy to use learn about using functions with Python and Arcade. Here we can
-see an example of a student drawing a pine tree using a function and parameters.
+is easy to use improve your program by using functions. Here we can
+see an example of a drawing a pine tree at a specific (x, y) location using a function:
 
 ```python
 def draw_pine_tree(x, y):
@@ -136,9 +136,9 @@ def draw_pine_tree(x, y):
                                       arcade.color.DARK_BROWN)
 ```
 
-![Classes and Functions](classes_and_functions.png)
-
 For the full example see [drawing with functions](http://arcade.academy/examples/drawing_with_functions.html).
+
+![Classes and Functions](classes_and_functions.png)
 
 The more experienced reader will know that modern graphs programs first load
 drawing information onto the graphics card, and then ask the graphics
