@@ -149,8 +149,10 @@ card to draw it later as a batch.
 The Window Class
 ---
 
-Larger programs will typically derive from the `Window` class, or use 
-decorators. This allows a programmer to write code to handle drawing,
+Larger programs will typically derive from the
+[Window](http://arcade.academy/arcade.html#arcade.application.Window) class, or 
+[use decorators](http://arcade.academy/examples/decorator_drawing_example.html#decorator-drawing-example).
+This allows a programmer to write code to handle drawing,
 updating, and handling input from the user.
 
 ```python
@@ -161,9 +163,7 @@ SCREEN_HEIGHT = 600
 
 
 class MyGame(arcade.Window):
-    """
-    Main application class.
-    """
+    """ Main application class. """
 
     def __init__(self, width, height):
         super().__init__(width, height)
@@ -175,21 +175,16 @@ class MyGame(arcade.Window):
         pass
 
     def on_draw(self):
-        """
-        Render the screen.
-        """
+        """ Render the screen. """
         arcade.start_render()
         # Your drawing code goes here
 
     def update(self, delta_time):
-        """
-        All the logic to move, and the game logic goes here.
-        """
+        """ All the logic to move, and the game logic goes here. """
         pass
 
 
 def main():
-    """ Main method """
     game = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT)
     game.setup()
     arcade.run()
@@ -224,46 +219,46 @@ to collect. We use two lists, one for the player and one for the coins.
 ![Collecting Coins With Sprites](sprite_collect_coins1.png)
 
 ```python
-    def setup(self):
-        """ Set up the game and initialize the variables. """
+def setup(self):
+    """ Set up the game and initialize the variables. """
 
-        # Sprite lists
-        self.player_list = arcade.SpriteList()
-        self.coin_list = arcade.SpriteList()
+    # Create the sprite lists
+    self.player_list = arcade.SpriteList()
+    self.coin_list = arcade.SpriteList()
 
-        # Score
-        self.score = 0
+    # Score
+    self.score = 0
 
-        # Set up the player
-        # Character image from kenney.nl
-        self.player_sprite = arcade.Sprite("images/character.png", SPRITE_SCALING_PLAYER)
-        self.player_sprite.center_x = 50 # Starting position
-        self.player_sprite.center_y = 50
-        self.player_list.append(self.player_sprite)
+    # Set up the player
+    # Character image from kenney.nl
+    self.player_sprite = arcade.Sprite("images/character.png", SPRITE_SCALING_PLAYER)
+    self.player_sprite.center_x = 50 # Starting position
+    self.player_sprite.center_y = 50
+    self.player_list.append(self.player_sprite)
 
-        # Create the coins
-        for i in range(COIN_COUNT):
+    # Create the coins
+    for i in range(COIN_COUNT):
 
-            # Create the coin instance
-            # Coin image from kenney.nl
-            coin = arcade.Sprite("images/coin_01.png", SPRITE_SCALING_COIN)
+        # Create the coin instance
+        # Coin image from kenney.nl
+        coin = arcade.Sprite("images/coin_01.png", SPRITE_SCALING_COIN)
 
-            # Position the coin
-            coin.center_x = random.randrange(SCREEN_WIDTH)
-            coin.center_y = random.randrange(SCREEN_HEIGHT)
+        # Position the coin
+        coin.center_x = random.randrange(SCREEN_WIDTH)
+        coin.center_y = random.randrange(SCREEN_HEIGHT)
 
-            # Add the coin to the lists
-            self.coin_list.append(coin)
+        # Add the coin to the lists
+        self.coin_list.append(coin)
 ```
 
 We can easily draw all the coins in the coin lists:
 
 ```python
-    def on_draw(self):
-        """ Draw everything """
-        arcade.start_render()
-        self.coin_list.draw()
-        self.player_list.draw()
+def on_draw(self):
+    """ Draw everything """
+    arcade.start_render()
+    self.coin_list.draw()
+    self.player_list.draw()
 ```
 
 The function `check_for_collision_with_list` allows us to see if a sprite runs
@@ -272,14 +267,14 @@ sprite is in contact with. Using a simple `for` loop, we can get rid of the coin
 from the game and increase our score.
 
 ```python
-    def update(self, delta_time):
-        # Generate a list of all sprites that collided with the player.
-        hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
+def update(self, delta_time):
+    # Generate a list of all sprites that collided with the player.
+    hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
 
-        # Loop through each colliding sprite, remove it, and add to the score.
-        for coin in hit_list:
-            coin.kill()
-            self.score += 1
+    # Loop through each colliding sprite, remove it, and add to the score.
+    for coin in hit_list:
+        coin.kill()
+        self.score += 1
 ```
 
 For the full example, see [collect_coins.py](http://arcade.academy/examples/sprite_collect_coins.html).
@@ -287,6 +282,24 @@ For the full example, see [collect_coins.py](http://arcade.academy/examples/spri
 Platformers
 ---
 
+```python
+self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
+```
+
+```python
+self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
+                                                     self.wall_list,
+                                                     gravity_constant=GRAVITY)
+```
+
+```python
+self.physics_engine.update()
+```
+
+PyMunk
+---
+
+[PyMunk Platformer](http://arcade.academy/examples/pymunk_platformer.html)
 
 Other Example Code
 ---
