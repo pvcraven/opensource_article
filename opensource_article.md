@@ -1,8 +1,7 @@
-Easy 2D Game Creation With Python And Arcade
-===
+# Easy 2D Game Creation With Python And Arcade
 
 [Python](https://opensource.com/resources/python) is a outstanding language for 
-people learning. It is perfect for anyone wanting to 
+people learning. In addition Python is perfect for anyone wanting to 
 "get stuff done" and not spend heaps of time on boilerplate code.
 [Arcade](http://arcade.academy) is a Python library for 
 creating 2D video games. It is painless to get get started using, and very 
@@ -27,8 +26,7 @@ I wanted a library that was easier to use, more powerful, and used some of the
 new features of Python 3 like decorators and type-hinting. Arcade is it.
 And this is how to get started.
 
-Installation
----
+## Installation
 
 Arcade, like many other packages, is available via 
 [PyPi](https://pypi.python.org/pypi). That means you can install Arcade using the 
@@ -46,17 +44,16 @@ Or on MacOS and Linux type:
 For more detailed installation instructions you can refer to the 
 [Arcade installation documentation](http://arcade.academy/installation.html).
 
-Simple Drawing
----
+## Simple Drawing
 
 You can open a window and create simple drawings with just a few lines of code.
-Let's create an example that draws a smiley face:
+Let's create an example that draws a smiley face like the figure below:
 
 ![Smiley Face](smiley_face.png)
 
 The script below shows how you can use 
 [Arcade's drawing commands](http://arcade.academy/quick_index.html#drawing-module)
-to draw the smiley face. Note that you don't need to know how to use "classes"
+to do this. Note that you don't need to know how to use "classes"
 or even define "functions." Programming with quick visual feedback is great 
 for anyone who wants to start learning to program.
 
@@ -113,8 +110,7 @@ arcade.finish_render()
 arcade.run()
 ```
 
-Using Functions
----
+## Using Functions
 
 Of course, writing code in the global context isn't good form. Thankfully it
 is easy to use improve your program by using functions. Here we can
@@ -141,19 +137,19 @@ For the full example see [drawing with functions](http://arcade.academy/examples
 
 ![Classes and Functions](classes_and_functions.png)
 
-The more experienced reader will know that modern graphs programs first load
+The more experienced reader will know that modern graphics programs first load
 drawing information onto the graphics card, and then ask the graphics
 card to draw it later as a batch. 
 [Arcade supports this as well](http://arcade.academy/examples/shape_list_demo.html).
 
-The Window Class
----
+## The Window Class
 
 Larger programs will typically derive from the
 [Window](http://arcade.academy/arcade.html#arcade.application.Window) class, or 
 [use decorators](http://arcade.academy/examples/decorator_drawing_example.html#decorator-drawing-example).
 This allows a programmer to write code to handle drawing,
-updating, and handling input from the user.
+updating, and handling input from the user. A template for a starting a
+`Window` based program is below.
 
 ```python
 import arcade
@@ -194,10 +190,22 @@ if __name__ == "__main__":
     main()
 ```
 
-Using Sprites
----
+The `Window` class has several methods that your programs can override to provide
+functionality to the program. Here are some of the most commonly used ones:
 
-Sprites allow programs to detect collisions. It is easy to create an instance of
+* `on_draw`: All the code to draw the screen goes here.
+* `update`: All the code to move your items and perform game logic goes here. This is called about 60 times per second.
+* `on_key_press`: Handle events when a key is pressed, such as giving a player a speed.
+* `on_key_release`: Handle when a key is released, here you might stop a player from moving.
+* `on_mouse_motion`: This is called every time the mouse moves.
+* `on_mouse_press`: Called when a mouse button is pressed.
+* `set_viewport`: This function is used in scrolling games, when you have a world
+  much larger than what can be seen on one screen. Calling `set_viewport` allows
+  a programmer to set what part of that world is currently visible.
+
+## Using Sprites
+
+"Sprites" allow programs to detect collisions. It is easy to create an instance of
 Arcade's [Sprite](http://arcade.academy/arcade.html#arcade.sprite.Sprite) 
 class out of a graphic. A programmer only needs the file name 
 of an image to base the sprite
@@ -268,41 +276,100 @@ from the game and increase our score.
 
 ```python
 def update(self, delta_time):
-    # Generate a list of all sprites that collided with the player.
-    hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
+    # Generate a list of all coin sprites that collided with the player.
+    coins_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
 
     # Loop through each colliding sprite, remove it, and add to the score.
-    for coin in hit_list:
+    for coin in coins_hit_list:
         coin.kill()
         self.score += 1
 ```
 
 For the full example, see [collect_coins.py](http://arcade.academy/examples/sprite_collect_coins.html).
 
-Platformers
----
+## Game Physics
+
+Many games include some kind of physics. The simplest are top-down
+programs that prevent the player from walking through walls. Platformers
+add more complexity with gravity, and platforms that move. Some games
+use a full 2D physics engine with mass, friction, springs and more.
+
+### Top-down Games
+
+For simple top-down based games, an Arcade program needs a list of walls
+that the player (or anything else) can't move through. Then a physics
+engine is created in the `Window` class's setup code with:
 
 ```python
+# Create a physics engine that moves the player sprite
+# and keeps it from moving through any sprite in the
+# wall_list.
 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
 ```
 
+The `player_sprite` is given a movement vector with its two attributes 
+`change_x` and `change_y`. A simple example of doing this would be
+to have the player move with the keyboard. For example, this might be
+in the custom child of the `Window` class:
+
+```python
+MOVEMENT_SPEED = 5
+
+def on_key_press(self, key, modifiers):
+    """Called whenever a key is pressed. """
+
+    if key == arcade.key.UP:
+        self.player_sprite.change_y = MOVEMENT_SPEED
+    elif key == arcade.key.DOWN:
+        self.player_sprite.change_y = -MOVEMENT_SPEED
+    elif key == arcade.key.LEFT:
+        self.player_sprite.change_x = -MOVEMENT_SPEED
+    elif key == arcade.key.RIGHT:
+        self.player_sprite.change_x = MOVEMENT_SPEED
+
+def on_key_release(self, key, modifiers):
+    """Called when the user releases a key. """
+
+    if key == arcade.key.UP or key == arcade.key.DOWN:
+        self.player_sprite.change_y = 0
+    elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
+        self.player_sprite.change_x = 0
+```
+
+While that code sets the player's speed, it doesn't move the player. In
+the `update` method of the `Window` class, calling `physics_engine.update()`
+will move the player, but not through walls.
+
+```python
+def update(self, delta_time):
+    """ Movement and game logic """
+
+    # Call update on all sprites (The sprites don't do much in this
+    # example though.)
+    self.physics_engine.update()
+```
+
+For a full example see [sprite_move_walls.py](http://arcade.academy/examples/sprite_move_walls.html)
+
+### Platformers
+
+Moving to a side view platformer is rather easy. A programmer just needs to 
+switch the physics engine to `PhysicsEnginePlatformer` and add in the 
+gravity constant.
+
 ```python
 self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
-                                                     self.wall_list,
+                                                     self.wall_list, 
                                                      gravity_constant=GRAVITY)
 ```
 
-```python
-self.physics_engine.update()
-```
+For an example see [sprite_tiled_map.py](http://arcade.academy/examples/sprite_tiled_map.html)
 
-PyMunk
----
+### 2D Physics with PyMunk
 
 [PyMunk Platformer](http://arcade.academy/examples/pymunk_platformer.html)
 
-Other Example Code
----
+## Other Example Code
 
 [Example Arcade Code](http://arcade.academy/examples/index.html)
 
