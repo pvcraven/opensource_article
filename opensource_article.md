@@ -60,14 +60,15 @@ for anyone who wants to start learning to program.
 ```python
 import arcade
 
+# Set constants for the screen size
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
 
 # Open the window. Set the window title and dimensions (width and height)
 arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing Example")
 
-# Set the background color to white
-# For a list of named colors see
+# Set the background color to white.
+# For a list of named colors see:
 # https://pythonhosted.org/arcade/arcade.color.html
 # Colors can also be specified in (red, green, blue) format and
 # (red, green, blue, alpha) format.
@@ -118,9 +119,8 @@ see an example of a drawing a pine tree at a specific (x, y) location using a fu
 
 ```python
 def draw_pine_tree(x, y):
-    """
-    This function draws a pine tree at the specified location.
-    """
+    """ This function draws a pine tree at the specified location. """
+    
     # Draw the triangle on top of the trunk.
     # We need three x, y points for the triangle.
     arcade.draw_triangle_filled(x + 40, y,       # Point 1
