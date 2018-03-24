@@ -9,8 +9,10 @@ capable as you gain experience. This article will show you how to use Python
 and Arcade to program video games.
 
 I started development on Arcade after teaching students using
-the [PyGame](https://www.pygame.org) library for almost 10 years in person and 
-[on-line](http://ProgramArcadeGames.com). PyGame is great, but eventually
+the [PyGame](https://www.pygame.org) library. I taught using PyGame
+for almost 10 years in person and 
+developed the on-line site [ProgramArcadeGames.com](http://ProgramArcadeGames.com)
+for learning to program. PyGame is great, but eventually
 I felt like I was wasting time having to cover for 
 [bugs that were never fixed](https://stackoverflow.com/questions/10148479/artifacts-when-drawing-primitives-with-pygame).
 I worried about teaching things like the [event loop](https://www.pygame.org/docs/tut/tom_games2.html)
@@ -141,6 +143,8 @@ The more experienced reader will know that modern graphics programs first load
 drawing information onto the graphics card, and then ask the graphics
 card to draw it later as a batch. 
 [Arcade supports this as well](http://arcade.academy/examples/shape_list_demo.html).
+Drawing 10,000 rectangles individually takes about 0.800 seconds. Drawing them
+as a batch takes less that 0.001 seconds.
 
 ## The Window Class
 
@@ -203,9 +207,16 @@ functionality to the program. Here are some of the most commonly used ones:
   much larger than what can be seen on one screen. Calling `set_viewport` allows
   a programmer to set what part of that world is currently visible.
 
-## Using Sprites
+## Sprites
 
-"Sprites" allow programs to detect collisions. It is easy to create an instance of
+[Sprites](https://en.wikipedia.org/wiki/Sprite_(computer_graphics)) are an easy 
+way to create a 2D bitmapped object in Arcade. Arcade
+has methods that make it easy to draw, move, and animate sprites. You can also
+easily use sprites to detect collisions between objects. 
+
+### Creating a Sprite
+
+It is simple to create an instance of
 Arcade's [Sprite](http://arcade.academy/arcade.html#arcade.sprite.Sprite) 
 class out of a graphic. A programmer only needs the file name 
 of an image to base the sprite
@@ -219,12 +230,13 @@ coin = arcade.Sprite("coin_01.png", SPRITE_SCALING_COIN)
 This code will create a sprite using the image stored in `coin_01.png`. The 
 image will be scaled down to 20% of its original height and width.
 
+![Collecting Coins With Sprites](sprite_collect_coins1.png)
+
 Sprites are normally organized into lists. These lists make it easier to manage
-the sprites and Arcade will use OpenGL to batch-draw the sprites as a group.
+the sprites. Sprites in a list will use OpenGL to batch-draw the sprites as a group.
 The code below sets up a game with a player, and a bunch of coins for the player
 to collect. We use two lists, one for the player and one for the coins.
 
-![Collecting Coins With Sprites](sprite_collect_coins1.png)
 
 ```python
 def setup(self):
@@ -269,6 +281,8 @@ def on_draw(self):
     self.player_list.draw()
 ```
 
+### Detecting Sprite Collisions
+
 The function `check_for_collision_with_list` allows us to see if a sprite runs
 into another sprite in a list. We can use this to see all the coins the player
 sprite is in contact with. Using a simple `for` loop, we can get rid of the coin
@@ -296,14 +310,14 @@ use a full 2D physics engine with mass, friction, springs and more.
 
 ### Top-down Games
 
+![Top Down Games](sprite_move_walls1.png)
+
 For simple top-down based games, an Arcade program needs a list of walls
-that the player (or anything else) can't move through. Then a physics
+that the player (or anything else) can't move through. 
+I usually call this `wall_list`. Then a physics
 engine is created in the `Window` class's setup code with:
 
 ```python
-# Create a physics engine that moves the player sprite
-# and keeps it from moving through any sprite in the
-# wall_list.
 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
 ```
 
@@ -353,6 +367,8 @@ For a full example see [sprite_move_walls.py](http://arcade.academy/examples/spr
 
 ### Platformers
 
+![Platformers](sprite_tiled_map1.png)
+
 Moving to a side view platformer is rather easy. A programmer just needs to 
 switch the physics engine to `PhysicsEnginePlatformer` and add in the 
 gravity constant.
@@ -363,14 +379,34 @@ self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
                                                      gravity_constant=GRAVITY)
 ```
 
+You can use a program like [Tiled](http://www.mapeditor.org/) to lay the
+tiles/blocks that make up your level.
+
 For an example see [sprite_tiled_map.py](http://arcade.academy/examples/sprite_tiled_map.html)
 
 ### 2D Physics with PyMunk
 
+![PyMunk Physics](pymunk_box_stacks.png)
+
 [PyMunk Platformer](http://arcade.academy/examples/pymunk_platformer.html)
 
-## Other Example Code
+## Learn by Example
 
-[Example Arcade Code](http://arcade.academy/examples/index.html)
+One of the best ways to learn is by example. The Arcade library has a long
+list of [example programs](http://arcade.academy/examples/index.html) that a person
+can draw on to create games. These examples each show a game concept that students
+have asked for in my classes or on-line over the years.
 
-Note how easy it is to run examples.
+It is easy to run any of these demos once Arcade has been installed. Each of
+the samples has a comment at the beginning of the program with a command
+you can type on the command-line to run the sample, for example: 
+
+`python -m arcade.examples.sprite_moving_platforms`
+
+## Summary
+
+Arcade lets you start programming graphics and games with straight-forward
+and easy to understand code. Many new programmers have created
+[great games](http://arcade.academy/sample_games.html) in just a few months
+time. Give it a try!
+
