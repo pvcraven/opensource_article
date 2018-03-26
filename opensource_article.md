@@ -384,11 +384,8 @@ tiles/blocks that make up your level.
 
 For an example see [sprite_tiled_map.py](http://arcade.academy/examples/sprite_tiled_map.html)
 
-### 2D Physics with PyMunk
-
-![PyMunk Physics](pymunk_box_stacks.png)
-
-[PyMunk Platformer](http://arcade.academy/examples/pymunk_platformer.html)
+For full 2D physics you can integrate the 
+[PyMunk](http://arcade.academy/examples/pymunk_platformer.html#pymunk-platformer) library.
 
 ## Learn by Example
 
