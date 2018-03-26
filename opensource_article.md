@@ -71,7 +71,7 @@ arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing Example")
 
 # Set the background color to white.
 # For a list of named colors see:
-# https://pythonhosted.org/arcade/arcade.color.html
+# http://arcade.academy/arcade.color.html
 # Colors can also be specified in (red, green, blue) format and
 # (red, green, blue, alpha) format.
 arcade.set_background_color(arcade.color.WHITE)
