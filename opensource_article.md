@@ -71,7 +71,7 @@ arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing Example")
 
 # Set the background color to white.
 # For a list of named colors see:
-# https://pythonhosted.org/arcade/arcade.color.html
+# http://arcade.academy/arcade.color.html
 # Colors can also be specified in (red, green, blue) format and
 # (red, green, blue, alpha) format.
 arcade.set_background_color(arcade.color.WHITE)
@@ -384,11 +384,8 @@ tiles/blocks that make up your level.
 
 For an example see [sprite_tiled_map.py](http://arcade.academy/examples/sprite_tiled_map.html)
 
-### 2D Physics with PyMunk
-
-![PyMunk Physics](pymunk_box_stacks.png)
-
-[PyMunk Platformer](http://arcade.academy/examples/pymunk_platformer.html)
+For full 2D physics you can integrate the 
+[PyMunk](http://arcade.academy/examples/pymunk_platformer.html#pymunk-platformer) library.
 
 ## Learn by Example
 
