@@ -1,49 +1,49 @@
 # Easy 2D Game Creation With Python And Arcade
 
-[Python](https://opensource.com/resources/python) is a outstanding language for 
-people learning. In addition Python is perfect for anyone wanting to 
+[Python](https://opensource.com/resources/python) is a outstanding language for
+people learning. In addition Python is perfect for anyone wanting to
 "get stuff done" and not spend heaps of time on boilerplate code.
-[Arcade](http://arcade.academy) is a Python library for 
-creating 2D video games. It is painless to get get started using, and very 
+[Arcade](http://arcade.academy) is a Python library for
+creating 2D video games. It is painless to get get started using, and very
 capable as you gain experience. This article will show you how to use Python
 and Arcade to program video games.
 
 I started development on Arcade after teaching students using
 the [PyGame](https://www.pygame.org) library. I taught using PyGame
-for almost 10 years in person and 
+for almost 10 years in person and
 developed the on-line site [ProgramArcadeGames.com](http://ProgramArcadeGames.com)
 for learning to program. PyGame is great, but eventually
-I felt like I was wasting time having to cover for 
+I felt like I was wasting time having to cover for
 [bugs that were never fixed](https://stackoverflow.com/questions/10148479/artifacts-when-drawing-primitives-with-pygame).
 I worried about teaching things like the [event loop](https://www.pygame.org/docs/tut/tom_games2.html)
 which was no longer the way we code. I had a
 [whole section](http://programarcadegames.com/index.php?chapter=introduction_to_graphics&lang=en#section_5_1)
-where I explained why the y-coordinates were reversed. 
-I didn't hold a lot of hope for the future as PyGame was seldom updated, 
+where I explained why the y-coordinates were reversed.
+I didn't hold a lot of hope for the future as PyGame was seldom updated,
 and it is based on
 an old [SDL 1 ](https://www.libsdl.org/download-1.2.php)
 library, rather than something like more modern like OpenGL.
 
-I wanted a library that was easier to use, more powerful, and used some of the 
+I wanted a library that was easier to use, more powerful, and used some of the
 new features of Python 3 like decorators and type-hinting. Arcade is it.
 And this is how to get started.
 
 ## Installation
 
-Arcade, like many other packages, is available via 
-[PyPi](https://pypi.python.org/pypi). That means you can install Arcade using the 
-`pip` command. 
+Arcade, like many other packages, is available via
+[PyPi](https://pypi.python.org/pypi). That means you can install Arcade using the
+`pip` command.
 (Or the [pipenv](https://opensource.com/article/18/2/why-python-devs-should-use-pipenv) command.)
 If you already have Python installed, you can likely just open
 up a command prompt on Windows and type:
 
-`pip install aracde`
+`pip install arcade`
 
 Or on MacOS and Linux type:
 
 `pip3 install arcade`
 
-For more detailed installation instructions you can refer to the 
+For more detailed installation instructions you can refer to the
 [Arcade installation documentation](http://arcade.academy/installation.html).
 
 ## Simple Drawing
@@ -53,10 +53,10 @@ Let's create an example that draws a smiley face like the figure below:
 
 ![Smiley Face](smiley_face.png)
 
-The script below shows how you can use 
+The script below shows how you can use
 [Arcade's drawing commands](http://arcade.academy/quick_index.html#drawing-module)
 to do this. Note that you don't need to know how to use "classes"
-or even define "functions." Programming with quick visual feedback is great 
+or even define "functions." Programming with quick visual feedback is great
 for anyone who wants to start learning to program.
 
 ```python
@@ -122,7 +122,7 @@ see an example of a drawing a pine tree at a specific (x, y) location using a fu
 ```python
 def draw_pine_tree(x, y):
     """ This function draws a pine tree at the specified location. """
-    
+
     # Draw the triangle on top of the trunk.
     # We need three x, y points for the triangle.
     arcade.draw_triangle_filled(x + 40, y,       # Point 1
@@ -141,7 +141,7 @@ For the full example see [drawing with functions](http://arcade.academy/examples
 
 The more experienced reader will know that modern graphics programs first load
 drawing information onto the graphics card, and then ask the graphics
-card to draw it later as a batch. 
+card to draw it later as a batch.
 [Arcade supports this as well](http://arcade.academy/examples/shape_list_demo.html).
 Drawing 10,000 rectangles individually takes about 0.800 seconds. Drawing them
 as a batch takes less that 0.001 seconds.
@@ -149,7 +149,7 @@ as a batch takes less that 0.001 seconds.
 ## The Window Class
 
 Larger programs will typically derive from the
-[Window](http://arcade.academy/arcade.html#arcade.application.Window) class, or 
+[Window](http://arcade.academy/arcade.html#arcade.application.Window) class, or
 [use decorators](http://arcade.academy/examples/decorator_drawing_example.html#decorator-drawing-example).
 This allows a programmer to write code to handle drawing,
 updating, and handling input from the user. A template for a starting a
@@ -209,16 +209,16 @@ functionality to the program. Here are some of the most commonly used ones:
 
 ## Sprites
 
-[Sprites](https://en.wikipedia.org/wiki/Sprite_(computer_graphics)) are an easy 
+[Sprites](https://en.wikipedia.org/wiki/Sprite_(computer_graphics)) are an easy
 way to create a 2D bitmapped object in Arcade. Arcade
 has methods that make it easy to draw, move, and animate sprites. You can also
-easily use sprites to detect collisions between objects. 
+easily use sprites to detect collisions between objects.
 
 ### Creating a Sprite
 
 It is simple to create an instance of
-Arcade's [Sprite](http://arcade.academy/arcade.html#arcade.sprite.Sprite) 
-class out of a graphic. A programmer only needs the file name 
+Arcade's [Sprite](http://arcade.academy/arcade.html#arcade.sprite.Sprite)
+class out of a graphic. A programmer only needs the file name
 of an image to base the sprite
 off of, and optionally a number to scale the image up or down. For example:
 ```python
@@ -227,7 +227,7 @@ SPRITE_SCALING_COIN = 0.2
 coin = arcade.Sprite("coin_01.png", SPRITE_SCALING_COIN)
 ```
 
-This code will create a sprite using the image stored in `coin_01.png`. The 
+This code will create a sprite using the image stored in `coin_01.png`. The
 image will be scaled down to 20% of its original height and width.
 
 ![Collecting Coins With Sprites](sprite_collect_coins1.png)
@@ -313,7 +313,7 @@ use a full 2D physics engine with mass, friction, springs and more.
 ![Top Down Games](sprite_move_walls1.png)
 
 For simple top-down based games, an Arcade program needs a list of walls
-that the player (or anything else) can't move through. 
+that the player (or anything else) can't move through.
 I usually call this `wall_list`. Then a physics
 engine is created in the `Window` class's setup code with:
 
@@ -321,7 +321,7 @@ engine is created in the `Window` class's setup code with:
 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
 ```
 
-The `player_sprite` is given a movement vector with its two attributes 
+The `player_sprite` is given a movement vector with its two attributes
 `change_x` and `change_y`. A simple example of doing this would be
 to have the player move with the keyboard. For example, this might be
 in the custom child of the `Window` class:
@@ -369,13 +369,13 @@ For a full example see [sprite_move_walls.py](http://arcade.academy/examples/spr
 
 ![Platformers](sprite_tiled_map1.png)
 
-Moving to a side view platformer is rather easy. A programmer just needs to 
-switch the physics engine to `PhysicsEnginePlatformer` and add in the 
+Moving to a side view platformer is rather easy. A programmer just needs to
+switch the physics engine to `PhysicsEnginePlatformer` and add in the
 gravity constant.
 
 ```python
 self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
-                                                     self.wall_list, 
+                                                     self.wall_list,
                                                      gravity_constant=GRAVITY)
 ```
 
@@ -399,7 +399,7 @@ have asked for in my classes or on-line over the years.
 
 It is easy to run any of these demos once Arcade has been installed. Each of
 the samples has a comment at the beginning of the program with a command
-you can type on the command-line to run the sample, for example: 
+you can type on the command-line to run the sample, for example:
 
 `python -m arcade.examples.sprite_moving_platforms`
 

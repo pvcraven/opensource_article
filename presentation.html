@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      body { font-family: 'Calibri'; }
+      h1, h2, h3 {
+        font-family: 'Calibri';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Consolas'; }
+      .remark-slide-content img {height: 550px;}
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Easy 2D Game Creation
+## Using Python and Arcade
+
+---
+# Follow Along!
+
+## http://arcade.academy
+
+---
+
+# Agenda
+
+1. What is it?
+2. Getting Started
+3. Drawing
+4. Functions
+5. Classes
+6. Sprites
+7. Example Code
+
+---
+
+# What is Arcade?
+
+* Easier and more powerful than Pygame
+* 2D games
+* Built on top of OpenGL and Pyglet
+
+---
+
+# Installing
+
+`pip install arcade`
+
+Requires Python 3.6 or greater.
+
+---
+# Opening a Window
+
+```python
+import arcade
+
+# Set constants for the screen size
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
+
+# Open the window. Set the window title and dimensions (width and height)
+arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing Example")
+
+# --- Drawing Code Will Go Here ---
+
+# Keep the window open until the user hits the 'close' button
+arcade.run()
+```
+
+---
+# Opening a Window
+
+```python
+import arcade
+
+# Set constants for the screen size
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
+
+# Open the window. Set the window title and dimensions (width and height)
+arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing Example")
+
+# --- Drawing Code Will Go Here ---
+# Start the render process. This must be done before any drawing commands.
+arcade.start_render()
+
+# --- Drawing Commands Will Go Here ---
+
+# Finish drawing and display the result
+arcade.finish_render()
+
+# Keep the window open until the user hits the 'close' button
+arcade.run()
+```
+
+---
+![Smiley Face](smiley_face.png)
+---
+# Drawing
+
+```python
+# Draw the face
+x = 300; y = 300; radius = 200
+arcade.draw_circle_filled(x, y, radius, arcade.color.YELLOW)
+
+# Draw the right eye
+x = 370; y = 350; radius = 20
+arcade.draw_circle_filled(x, y, radius, arcade.color.BLACK)
+
+# Draw the left eye
+x = 230; y = 350; radius = 20
+arcade.draw_circle_filled(x, y, radius, arcade.color.BLACK)
+
+# Draw the smile
+x = 300; y = 280; width = 120; height = 100
+start_angle = 190; end_angle = 350
+arcade.draw_arc_outline(x, y, width, height, arcade.color.BLACK,
+                        start_angle, end_angle, 10)
+```
+---
+
+![Classes and Functions](classes_and_functions.png)
+
+---
+# Drawing With Functions
+
+```python
+def draw_pine_tree(x, y):
+    """ This function draws a pine tree at the specified location. """
+
+    # Draw the triangle on top of the trunk.
+    # We need three x, y points for the triangle.
+    arcade.draw_triangle_filled(x + 40, y,       # Point 1
+                                x, y - 100,      # Point 2
+                                x + 80, y - 100, # Point 3
+                                arcade.color.DARK_GREEN)
+
+    # Draw the trunk
+    arcade.draw_lrtb_rectangle_filled(x + 30, x + 50, y - 100, y - 140,
+                                      arcade.color.DARK_BROWN)
+```
+---
+# Drawing With Functions
+
+http://arcade.academy/examples/drawing_with_functions.html
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
